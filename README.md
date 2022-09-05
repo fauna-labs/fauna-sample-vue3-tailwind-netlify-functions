@@ -1,5 +1,9 @@
 # vue-fauna-use-demo-data
 
+## Prerequisites
+* Node 14
+* [Netlify Cli](https://www.netlify.com/products/cli/): `npm install netlify-cli -g`
+* 
 ## Project setup
 ```
 npm install
