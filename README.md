@@ -5,24 +5,19 @@
 * [Netlify Cli](https://www.netlify.com/products/cli/): `npm install netlify-cli -g`
 * 
 ## Project setup
+* Create a `.env` file in root
+
+```
+FAUNA_KEY=secret
+FAUNA_DOMAIN=db.{region}.fauna.com
+```
+
+* Install packages
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## Netlify Dev
 ```
-npm run serve
+netlify dev
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
