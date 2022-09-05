@@ -88,6 +88,7 @@
 import CartList from '../components/CartList.vue';
 import CheckoutFormField from '../components/CheckoutFormField.vue';
 
+
 export default {
   name: 'Checkout',
   components: {
@@ -117,19 +118,16 @@ export default {
     }
   },
   mounted() {
-    console.log('M O U N T E D');
     this.populateCustomerInfo(this.$store.state.accessToken);
   },
   methods: {
     async populateCustomerInfo(token) {
       if (!token) {
-        console.log('no access token');
         return;
       }
 
       const shippingAndPaymentInfo = this.$store.state.shippingAndPaymentInfo;
       if (shippingAndPaymentInfo) {
-        console.log('populating from state');
         this.customerInfo = shippingAndPaymentInfo;
         this.address = shippingAndPaymentInfo.address;
         this.creditCard = shippingAndPaymentInfo.creditCard;
@@ -154,10 +152,36 @@ export default {
     continueShopping() {
       this.$router.push('/');
     },
-    submitOrder() {
-      console.log(this.creditCard);
-      this.$store.commit("orderSubmitted");
-      this.$router.push('/');
+    async submitOrder() {
+      const store = this.$store.state.cart;
+      let cart = [];
+      for (const key in store) {
+        const product = store[key];
+        cart.push({
+          productId: product.product.id,
+          quantity: product.quantity
+        });
+      }
+      const res = await fetch(
+            '/.netlify/functions/orders', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${this.accessToken}`
+            },
+            body: JSON.stringify({
+              products: cart,
+              shippingAddress: this.address,
+              paymentInfo: this.creditCard
+            })
+          });
+      const data = await res.json();
+      if (data.status === 'processing') {
+        this.$store.commit("orderSubmitted");
+        this.$router.push('/');
+      } else {
+        // TODO: do some UI stuff
+        alert('there was a problem');
+      }     
     }
   },
   watch: {

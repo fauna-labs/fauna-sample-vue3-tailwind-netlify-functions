@@ -3,7 +3,7 @@
     <div>
       <div class="w-full text-right py-2">
         <button @click="continueShopping"
-          type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+          class="font-medium text-indigo-600 hover:text-indigo-500">
           <span aria-hidden="true"> &larr;</span>
           Back to shopping
         </button>
@@ -35,14 +35,14 @@
               <p class="">{{ order.status }}</p>
             </div>
             <div class="col-span-2">
-              <Button
+              <button
                 class="px-4 py-2 border rounded-md text-sm font-medium shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                View Order</Button>
+                View Order</button>
             </div>
             <div class="col-span-2">
-              <Button
+              <button
                 class="px-4 py-2 border rounded-md text-sm font-medium shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                View Invoice</Button>
+                View Invoice</button>
             </div>
           </div>
           <div class="flow-root">
@@ -68,7 +68,6 @@ export default {
     }
   },
   mounted() {
-    console.log('M O U N T E D');
     this.loadMyOrders();
   },
   methods: {
@@ -86,10 +85,12 @@ export default {
         for (const p of cart) {
           total += p.product.price * p.quantity;
         }
-        x.total = total;
+        x.total = total.toFixed(2);
         x.orderPlaced = new Date(x.creationDate["@ts"]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
         return x;
       });
+      // sort descending
+      data.sort((a, b)=>{ return (b.id > a.id) ? 1 : -1 });
       this.myOrders = data;
     },
     continueShopping() {

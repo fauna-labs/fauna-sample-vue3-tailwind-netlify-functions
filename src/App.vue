@@ -1,8 +1,4 @@
 <template>
-  <!-- <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/checkout">Checkout</router-link>
-  </div> -->
   <div class="grid grid-cols-1 gap-0">
     <p
       class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
@@ -10,7 +6,7 @@
 
     <div v-if="orderConfirmed"
       class="flex h-20 items-center justify-end bg-green-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-      <p class="grow w-full">Order Confirmed</p>
+      <p class="grow w-full">Order Confirmed. <button class="pl-1 underline" @click="viewOrders">View orders</button></p>
       <div class="flex-none w-9">
         <button @click="closeAlert"
           type="button" class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
@@ -66,6 +62,10 @@ export default {
     },
     closeAlert() {
       this.$store.commit("closeAlert");
+    },
+    viewOrders() {
+      this.closeAlert();
+      this.$router.push('/orders');
     }
   }
 }

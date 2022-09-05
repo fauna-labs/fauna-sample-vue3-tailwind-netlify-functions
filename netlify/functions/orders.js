@@ -1,6 +1,6 @@
 const faunadb = require('faunadb');
 const q = faunadb.query;
-const { Paginate, Documents, Collection, Lambda, Map, Let, Get, Var, Merge, Select,
+const { CurrentIdentity, If, Paginate, Documents, Collection, Lambda, Map, Let, Get, Var, Merge, Select,
   Ref, Do, Foreach, LTE, Abort, Concat, ToString, Time, Update, Subtract, Create } = q;
 
 const client = new faunadb.Client({
@@ -13,10 +13,6 @@ exports.handler = async function (event, context) {
     const token = event.headers.authorization.split('Bearer ')[1];
 
     if (event.httpMethod === 'GET') {
-      // const client = new faunadb.Client({
-      //   secret: token,
-      //   domain: process.env.FAUNA_DOMAIN
-      // });
       let res = await client.query(
         Map(
           Paginate(Documents(Collection("orders"))),
@@ -66,11 +62,15 @@ exports.handler = async function (event, context) {
     // ----------------
     if (event.httpMethod === 'POST') {
       const payload = JSON.parse(event.body);
-      const customerId = payload.customerId;
       const products = payload.products;
       const shippingAddress = payload.shippingAddress;
       const paymentInfo = payload.paymentInfo;
   
+      const customer = await client.query(
+        CurrentIdentity(),
+        { secret: token }
+      )
+
       let res = await client.query(
         Let(
           {
@@ -173,7 +173,7 @@ exports.handler = async function (event, context) {
               },
               Create(Collection("orders"), {
                 data: {
-                  customer: Ref(Collection("customers"), customerId),
+                  customer: customer,
                   cart: Var("shoppingCart"),
                   status: "processing",
                   creationDate: Time("now"),
@@ -184,12 +184,16 @@ exports.handler = async function (event, context) {
               })
             )
           )
-        )
+        ),
+        { secret: process.env.FAUNA_KEY }
       );
-      console.log(res);
-
+      return {
+        statusCode: 200,
+        body: JSON.stringify(res.data),
+      };
     }
   } catch(e) {
+    console.log(`ERROR: ${e}`);
     return {
       statusCode: 401,
       body: 'Unauthorized'
