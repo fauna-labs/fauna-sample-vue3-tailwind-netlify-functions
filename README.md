@@ -21,6 +21,11 @@ FAUNA_DOMAIN=db.{region}.fauna.com
 npm install
 ```
 
+* Run additional setup on the environment (create additional resources, populate more data, etc.)
+```
+npm run fauna-setup.js
+```
+
 ## Netlify Dev
 ```
 netlify dev
