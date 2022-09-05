@@ -35,12 +35,12 @@
               <p class="">{{ order.status }}</p>
             </div>
             <div class="col-span-2">
-              <button
+              <button @click="tbd"
                 class="px-4 py-2 border rounded-md text-sm font-medium shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 View Order</button>
             </div>
             <div class="col-span-2">
-              <button
+              <button @click="tbd"
                 class="px-4 py-2 border rounded-md text-sm font-medium shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 View Invoice</button>
             </div>
@@ -96,7 +96,9 @@ export default {
     continueShopping() {
       this.$router.push('/');
     },
-
+    tbd() {
+      alert('nothing to see yet');
+    }
   }
 }
 </script>

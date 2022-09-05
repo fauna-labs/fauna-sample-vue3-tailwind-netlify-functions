@@ -688,7 +688,9 @@
                 <a v-else 
                   href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" @click="showLogin()">Sign in</a>
                 <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
-                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+                <button
+                  @click="tbd" 
+                  class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</button>
               </div>
 
               <div class="hidden lg:ml-8 lg:flex">
@@ -756,6 +758,9 @@ export default {
     },
     showLogin() {
       this.$emit('show-login');
+    },
+    tbd() {
+      alert('nothing to see yet');
     }
   }
 }
