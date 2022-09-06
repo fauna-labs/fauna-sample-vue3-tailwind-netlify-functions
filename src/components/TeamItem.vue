@@ -1,3 +1,7 @@
+<!--
+Copyright Fauna, Inc.
+SPDX-License-Identifier: MIT-0
+-->
 <template>
   <li class="py-4 pl-4 flex">
     <img class="h-10 w-10 rounded-full" :src="team.logo" alt="" />

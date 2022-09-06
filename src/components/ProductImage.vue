@@ -1,3 +1,7 @@
+<!--
+Copyright Fauna, Inc.
+SPDX-License-Identifier: MIT-0
+-->
 <template>
     <a href="#" class="group">
       <!-- <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"> -->

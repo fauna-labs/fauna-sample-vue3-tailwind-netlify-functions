@@ -1,3 +1,7 @@
+<!--
+Copyright Fauna, Inc.
+SPDX-License-Identifier: MIT-0
+-->
 <template>
   <div class="bg-white">
     <div class="mx-auto grid max-w-2xl grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 items-start gap-y-16 gap-x-8 py-24 px-4 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">

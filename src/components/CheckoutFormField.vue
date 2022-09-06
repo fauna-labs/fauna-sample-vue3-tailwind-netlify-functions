@@ -1,3 +1,7 @@
+<!--
+Copyright Fauna, Inc.
+SPDX-License-Identifier: MIT-0
+-->
 <template>
     <div :class="colSpans">
       <label :for="name" class="block text-sm font-medium text-gray-700">{{label}}</label>

@@ -1,3 +1,7 @@
+<!--
+Copyright Fauna, Inc.
+SPDX-License-Identifier: MIT-0
+-->
 <template>
   <li class="flex py-6">
     <ProductImage :width=20 :product="product.product"/>

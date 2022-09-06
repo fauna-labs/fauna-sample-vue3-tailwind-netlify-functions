@@ -1,3 +1,6 @@
+// Copyright Fauna, Inc.
+// SPDX-License-Identifier: MIT-0
+
 import { createRouter, createWebHistory } from 'vue-router';
 import Products from '../views/Products.vue';
 import Checkout from '../views/Checkout.vue';

@@ -1,3 +1,7 @@
+<!--
+Copyright Fauna, Inc.
+SPDX-License-Identifier: MIT-0
+-->
 <template>
   <ul class="divide-y divide-gray-200">
     <TeamItem v-for="team in teams" :key="team.id" :team="team"/>
