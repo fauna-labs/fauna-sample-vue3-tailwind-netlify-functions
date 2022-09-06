@@ -11,8 +11,6 @@ const client = new faunadb.Client({
 });
 
 exports.handler = async function (event, context) {
-  console.log(event.httpMethod);
-
   if (event.httpMethod === 'GET') {
     let res = await client.query(
       Select(

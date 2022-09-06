@@ -167,25 +167,24 @@ export default {
         });
       }
       const res = await fetch(
-            '/.netlify/functions/orders', {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${this.accessToken}`
-            },
-            body: JSON.stringify({
-              products: cart,
-              shippingAddress: this.address,
-              paymentInfo: this.creditCard
-            })
-          });
-      const data = await res.json();
-      if (data.status === 'processing') {
-        this.$store.commit("orderSubmitted");
-        this.$router.push('/');
-      } else {
-        // TODO: do some UI stuff
-        alert('there was a problem');
-      }     
+          '/.netlify/functions/orders', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`
+          },
+          body: JSON.stringify({
+            products: cart,
+            shippingAddress: this.address,
+            paymentInfo: this.creditCard
+          })
+        });
+        if (res.status === 200) {
+          this.$store.commit("orderSubmitted");
+          this.$router.push('/');
+        } else {
+          const data = await res.json();
+          alert(data.error);
+        }
     }
   },
   watch: {

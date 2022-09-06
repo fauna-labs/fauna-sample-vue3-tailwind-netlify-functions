@@ -80,28 +80,20 @@ exports.handler = async function (event, context) {
             products: Map(
               products,
               Lambda(
-                "requestedProduct",
+                "p",
                 Let(
                   {
-                    product: Get(
-                      Ref(
-                        Collection("products"),
-                        Select("productId", Var("requestedProduct"))
-                      )
-                    )
+                    r: Ref(Collection("products"), Select("productId", Var("p"))),
+                    product: Get(Var("r"))
                   },
                   {
-                    ref: Select("ref", Var("product")),
+                    ref: Var("r"),
+                    id: Select(["id"], Var("r")),
+                    name: Select(["data", "name"], Var("product")),
                     price: Select(["data", "price"], Var("product")),
                     currentQuantity: Select(["data", "quantity"], Var("product")),
-                    requestedQuantity: Select(
-                      ["quantity"],
-                      Var("requestedProduct")
-                    ),
-                    backorderLimit: Select(
-                      ["data", "backorderLimit"],
-                      Var("product")
-                    )
+                    requestedQuantity: Select(["quantity"], Var("p")),
+                    backorderLimit: Select(["data", "backorderLimit"], Var("product"))
                   }
                 )
               )
@@ -121,10 +113,8 @@ exports.handler = async function (event, context) {
                   Abort(
                     Concat([
                       "Stock quantity for Product [",
-                      Select(["ref", "id"], Var("product")),
-                      "] not enough – requested at [",
-                      ToString(Time("now")),
-                      "]"
+                      Select(["name"], Var("product")),
+                      "] not enough"
                     ])
                   )
                 )
@@ -196,10 +186,10 @@ exports.handler = async function (event, context) {
       };
     }
   } catch(e) {
-    console.log(`ERROR: ${e}`);
+    // console.log(`ERROR: ${e.description}`);
     return {
-      statusCode: 401,
-      body: 'Unauthorized'
+      statusCode: e.description === 'Unauthorized' ? 401 : 400,
+      body: JSON.stringify({ error: e.description })
     };
   }
 
