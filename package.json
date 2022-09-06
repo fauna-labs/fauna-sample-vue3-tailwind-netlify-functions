@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "fauna-setup": "node fauna/setup.js",
+    "fauna-setup": "node utils/setup.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

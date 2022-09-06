@@ -6,7 +6,7 @@ You would be creating a database with some **Demo data** as part of the guide.
 To supplement the tutorial/guide, we've provided this project, built on top of the **Demo data**, which
 provides you a sample of how to work with the database using Vue and Netlify.
 
-![demo](/images/vue-fauna-use-demo-data.gif)
+![demo](/doc/images/vue-fauna-use-demo-data.gif)
 
 ## Prerequisites
 * Node 14
