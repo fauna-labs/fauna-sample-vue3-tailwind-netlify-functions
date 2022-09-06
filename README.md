@@ -6,6 +6,8 @@ You would be creating a database with some **Demo data** as part of the guide.
 To supplement the tutorial/guide, we've provided this project, built on top of the **Demo data**, which
 provides you a sample of how to work with the database using Vue and Netlify.
 
+![demo](/images/vue-fauna-use-demo-data.gif.gif)
+
 ## Prerequisites
 * Node 14
   > If you have a different version of Node installed on your machine, you can install [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) instead. Tip: You need to uninstall Node first before installing nvm.
