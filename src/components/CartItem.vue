@@ -21,7 +21,11 @@ SPDX-License-Identifier: MIT-0
 
         <div v-if="!readOnly"
           class="flex">
-          <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+          <button 
+            @click="remove"
+            type="button" 
+            class="font-medium text-indigo-600 hover:text-indigo-500"
+            >Remove</button>
         </div>
       </div>
     </div>
@@ -41,6 +45,11 @@ export default {
     readOnly: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    remove() {
+      this.$emit("remove-item", this.product.product.id);
     }
   }
 }

@@ -56,6 +56,10 @@ export default createStore({
     logout(state) {
       state.accessToken = null;
       state.shippingAndPaymentInfo = null;
+    },
+    removeCartItem(state, id) {
+      state.numCartItems -= state.cart[id].quantity;
+      delete state.cart[id];
     }
   },
   actions: {

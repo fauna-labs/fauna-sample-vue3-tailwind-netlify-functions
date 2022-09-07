@@ -72,9 +72,14 @@ SPDX-License-Identifier: MIT-0
             <p>${{ subtotal }}</p>
           </div>
           <div class="mt-4">
-            <button @click="submitOrder"
-              type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">            
-              Confirm Order</Button>
+            <button 
+              type="button" 
+              class="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+              :disabled="numCartItems<=0"
+              @click="submitOrder"
+              >
+              Confirm Order
+            </Button>
           </div>
           <div class="mt-6 flex justify-start">
             <button @click="continueShopping" type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
@@ -110,6 +115,9 @@ export default {
     },
     accessToken() {
       return this.$store.state.accessToken;
+    },
+    numCartItems() {
+      return this.$store.state.numCartItems;
     }
   },
   data() {
@@ -157,6 +165,8 @@ export default {
       this.$router.push('/');
     },
     async submitOrder() {
+      if (this.numCartItems <=0) return;
+
       const store = this.$store.state.cart;
       let cart = [];
       for (const key in store) {

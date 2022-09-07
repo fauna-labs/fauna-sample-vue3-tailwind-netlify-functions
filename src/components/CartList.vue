@@ -6,7 +6,10 @@ SPDX-License-Identifier: MIT-0
   <div class="mt-8">
     <div class="flow-root">
       <ul role="list" class="-my-6 divide-y divide-gray-200">
-        <CartItem v-for="product in cart" :key="product.id" :product="product" />
+        <CartItem 
+          v-for="product in cart" :key="product.product.id" :product="product"
+          @remove-item="removeCartItem(product.product.id)"
+          />
       </ul>
     </div>
   </div>
@@ -29,6 +32,11 @@ export default {
       }
       return cart;
     },    
+  },
+  methods: {
+    removeCartItem(id) {
+      this.$store.commit('removeCartItem', id);
+    }
   }
 }
 </script>
