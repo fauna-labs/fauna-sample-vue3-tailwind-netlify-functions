@@ -11,8 +11,19 @@ const client = new faunadb.Client({
   domain: process.env.FAUNA_DOMAIN
 });
 
+function fql(fql) {
+  client.query(fql)
+  .then(res=>{
+    console.log(res);
+  })
+  .catch(err=>{
+    console.log(err);
+  })  
+}
+
+
 // create customers_by_first_and_last_name index
-client.query(
+fql(
   If(
     Exists(Index("customers_by_first_and_last_name")),
     'INDEX "customers_by_first_and_last_name" already exists',
@@ -27,9 +38,28 @@ client.query(
     })   
   )
 )
-.then(res=>{
-  console.log(res);
-})
-.catch(err=>{
-  console.log(err);
-})
+
+// create orders_by_customer index
+fql(
+  If(
+    Exists(Index("orders_by_customer")),
+    'INDEX "orders_by_customer" already exists',
+    CreateIndex({
+      name: 'orders_by_customer',
+      source: Collection('orders'),
+      terms: [
+        { field: ['data', 'customer'] }
+      ]
+    })   
+  )  
+)
+
+// client.query(
+
+// )
+// .then(res=>{
+//   console.log(res);
+// })
+// .catch(err=>{
+//   console.log(err);
+// })

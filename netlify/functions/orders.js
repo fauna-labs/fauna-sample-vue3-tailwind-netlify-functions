@@ -3,8 +3,8 @@
 
 const faunadb = require('faunadb');
 const q = faunadb.query;
-const { CurrentIdentity, If, Paginate, Documents, Collection, Lambda, Map, Let, Get, Var, Merge, Select,
-  Ref, Do, Foreach, LTE, Abort, Concat, ToString, Time, Update, Subtract, Create } = q;
+const { CurrentIdentity, If, Paginate, Match, Index, Collection, Lambda, Map, Let, Get, Var, Merge, Select,
+  Ref, Do, Foreach, LTE, Abort, Concat, Time, Update, Subtract, Create } = q;
 
 const client = new faunadb.Client({
   secret: process.env.FAUNA_KEY,
@@ -15,10 +15,14 @@ exports.handler = async function (event, context) {
   try {
     const token = event.headers.authorization.split('Bearer ')[1];
 
+    const customer = await client.query(CurrentIdentity(), {
+      secret: token
+    });
+
     if (event.httpMethod === 'GET') {
       let res = await client.query(
         Map(
-          Paginate(Documents(Collection("orders"))),
+          Paginate(Match(Index("orders_by_customer"), customer)),
           Lambda(
             "x",
             Let(
@@ -51,8 +55,7 @@ exports.handler = async function (event, context) {
               )
             )
           )
-        ),
-        { secret: token }
+        )
       );
       return {
         statusCode: 200,
@@ -69,11 +72,6 @@ exports.handler = async function (event, context) {
       const shippingAddress = payload.shippingAddress;
       const paymentInfo = payload.paymentInfo;
   
-      const customer = await client.query(
-        CurrentIdentity(),
-        { secret: token }
-      )
-
       let res = await client.query(
         Let(
           {
@@ -177,8 +175,7 @@ exports.handler = async function (event, context) {
               })
             )
           )
-        ),
-        { secret: process.env.FAUNA_KEY }
+        )
       );
       return {
         statusCode: 200,
