@@ -49,3 +49,6 @@ instructions from steps 1 through 3.
 ```
 netlify dev
 ```
+
+The sample data loads 3 user logins, which you can use to login into the app. The 3 usernames are: "alice.appleseed", "bob.brown" and "carol.clark" and the password is "fauna-demo"
+![signin](/doc/images/signin-demo.png)
