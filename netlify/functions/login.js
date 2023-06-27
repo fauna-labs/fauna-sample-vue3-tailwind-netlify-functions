@@ -7,7 +7,7 @@ const { Login, Select, Paginate, Match, Index} = q;
 
 const client = new faunadb.Client({
   secret: process.env.FAUNA_KEY,
-  domain: process.env.FAUNA_DOMAIN
+  domain: "db.fauna.com"
 });
 
 exports.handler = async function (event, context) {

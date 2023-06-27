@@ -8,7 +8,7 @@ const { CreateIndex, Collection, If, Exists, Index } = q;
 
 const client = new faunadb.Client({
   secret: process.env.FAUNA_KEY,
-  domain: process.env.FAUNA_DOMAIN
+  domain: "db.fauna.com"
 });
 
 function fql(fql) {
@@ -53,13 +53,3 @@ fql(
     })   
   )  
 )
-
-// client.query(
-
-// )
-// .then(res=>{
-//   console.log(res);
-// })
-// .catch(err=>{
-//   console.log(err);
-// })

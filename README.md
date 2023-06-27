@@ -9,7 +9,7 @@ provides you a sample of how to work with the database using Vue and Netlify.
 ![demo](/doc/images/vue-fauna-use-demo-data.gif)
 
 ## Prerequisites
-* Node 14
+* Node 16 or above
   > If you have a different version of Node installed on your machine, you can install [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) instead. Tip: You need to uninstall Node first before installing nvm.
 * [Netlify Cli](https://www.netlify.com/products/cli/)
 
@@ -31,12 +31,8 @@ instructions from steps 1 through 3.
 * Create a `.env` file in the root of this project with the following values
   ```
   FAUNA_KEY={{secret}}
-  FAUNA_DOMAIN={{db.fauna.com}}
   ```
-  For `FAUNA_KEY`, use the access key value obtained from step 3 of the Fauna Setup. 
-  For `FAUNA_DOMAIN`, please follow **Step 4** in these
-  [instructions](https://docs.fauna.com/fauna/current/learn/understanding/region_groups#how-to-use-region-groups)
-  if you created your database in a region group other than `Classic`.
+  For the value of `FAUNA_KEY`, use the access key value obtained from step 3 of the Fauna Setup. 
 
 
 * Install packages
@@ -46,7 +42,7 @@ instructions from steps 1 through 3.
 
 * Run additional setup on the environment (create additional resources, populate more data, etc.)
   ```
-  npm run fauna-setup.js
+  npm run fauna-setup
   ```
 
 ## Netlify Dev

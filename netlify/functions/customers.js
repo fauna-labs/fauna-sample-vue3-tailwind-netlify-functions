@@ -12,7 +12,7 @@ exports.handler = async function (event, context) {
 
       const client = new faunadb.Client({
         secret: token,
-        domain: process.env.FAUNA_DOMAIN
+        domain: "db.fauna.com"
       });
 
       let res = await client.query(
