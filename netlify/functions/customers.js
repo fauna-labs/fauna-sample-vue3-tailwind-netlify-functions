@@ -1,29 +1,23 @@
 // Copyright Fauna, Inc.
 // SPDX-License-Identifier: MIT-0
 
-const faunadb = require('faunadb');
-const q = faunadb.query;
-const { Get, CurrentIdentity } = q;
+import { Client, fql } from "fauna";
 
 exports.handler = async function (event, context) {
   if (event.httpMethod === 'GET') {
     try {
       const token = event.headers.authorization.split('Bearer ')[1];
 
-      const client = new faunadb.Client({
-        secret: token,
-        domain: "db.fauna.com"
-      });
+      const client = new Client({secret: token});
 
-      let res = await client.query(
-        Get(CurrentIdentity())
-      );
+      const res = await client.query(fql`Query.identity()`);
+      
+      client.close();
 
       return {
         statusCode: 200,
         body: JSON.stringify(res.data),
-      };          
-
+      };
     } catch(e) {
       return {
         statusCode: 401,

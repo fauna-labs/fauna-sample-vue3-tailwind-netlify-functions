@@ -90,7 +90,7 @@ export default {
           total += p.product.price * p.quantity;
         }
         x.total = total.toFixed(2);
-        x.orderPlaced = new Date(x.creationDate["@ts"]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
+        x.orderPlaced = new Date(x.creationDate.isoString).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
         return x;
       });
       // sort descending

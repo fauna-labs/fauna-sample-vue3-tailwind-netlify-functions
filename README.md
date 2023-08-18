@@ -28,12 +28,10 @@ instructions from steps 1 through 3.
 ⚠️ In step 2 above, be sure to check the **Use demo data** checkbox.
 
 ### Project Setup
-* Create a `.env` file in the root of this project with the following values
+* Create a file `.env` in the root of this project and populate it with the FAUNA_KEY access key obtained from step 3 of the Fauna Setup. e.g.
   ```
   FAUNA_KEY={{secret}}
   ```
-  For the value of `FAUNA_KEY`, use the access key value obtained from step 3 of the Fauna Setup. 
-
 
 * Install packages
   ```

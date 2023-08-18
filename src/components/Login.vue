@@ -73,7 +73,7 @@ SPDX-License-Identifier: MIT-0
 
 <script>
 export default {
-  name: 'Login',
+  name: 'LoginComponent',
   data() {
     return {
       username: null,

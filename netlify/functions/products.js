@@ -1,39 +1,28 @@
 // Copyright Fauna, Inc.
 // SPDX-License-Identifier: MIT-0
 
-const faunadb = require('faunadb');
-const q = faunadb.query;
-const { Select, Map, Paginate, Documents, Collection, Lambda, Let, Get, Var, Merge } = q;
+import { Client, fql } from "fauna";
 
-const client = new faunadb.Client({
-  secret: process.env.FAUNA_KEY,
-  domain: "db.fauna.com"
-});
+
 
 exports.handler = async function (event, context) {
   if (event.httpMethod === 'GET') {
-    let res = await client.query(
-      Select(
-        ['data'],
-        Map(
-          Paginate(Documents(Collection('products'))),
-          Lambda(
-            'x',
-            Let(
-              {
-                doc: Get(Var('x')),
-                data: Select(['data'], Var('doc')),
-                id: Select(['ref', 'id'], Var('doc'))
-              },
-              Merge({ id: Var('id') }, Var('data'))
-            )
-          )
-        )
-      )
-    );
+    const client = new Client({secret: process.env.FAUNA_KEY});
+
+    const res = await client.query(fql`
+    products.all() {
+      id,
+      price,
+      name,
+      description
+    }
+    `);
+
+    client.close();
+    
     return {
       statusCode: 200,
-      body: JSON.stringify(res),
+      body: JSON.stringify(res.data.data),
     };
   }
 
