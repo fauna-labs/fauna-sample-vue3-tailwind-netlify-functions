@@ -1,5 +1,5 @@
 [build.environment]
-  FAUNA_KEY=""
+  FAUNA_SECRET=""
 
 [functions]
   node_bundler="esbuild"

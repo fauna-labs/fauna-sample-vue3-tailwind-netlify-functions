@@ -31,7 +31,7 @@ exports.handler = async function (event, context) {
           id,
           status,
           creationDate,
-          cart
+          orderProducts
         }
       `);
 
@@ -43,6 +43,7 @@ exports.handler = async function (event, context) {
       };
     }
     catch(e) {
+      console.log(e)
       return {
         statusCode: e.httpStatus,
         body: JSON.stringify({ error: e.code })
@@ -60,7 +61,7 @@ exports.handler = async function (event, context) {
     const paymentInfo = payload.paymentInfo;
 
     try {
-      const client = new Client({secret: process.env.FAUNA_KEY});  
+      const client = new Client({secret: process.env.FAUNA_SECRET});  
 
       const res = await client.query(fql`
       ${cart}.forEach(x=>{              
@@ -81,7 +82,7 @@ exports.handler = async function (event, context) {
         customer: ${loggedInUser},
         creationDate: Time.now(),
         status: 'processing',
-        cart: ${cart}.map(x=>{
+        orderProducts: ${cart}.map(x=>{
           product: products.byId(x.productId),
           quantity: x.quantity,
           price: products.byId(x.productId)!.price

@@ -50,7 +50,7 @@ SPDX-License-Identifier: MIT-0
             </div>
           </div>
           <div class="flow-root">
-            <CartItem v-for="product in order.cart" :key="product.id" :product="product" readOnly />
+            <CartItem v-for="product in order.orderProducts" :key="product.id" :product="product" readOnly />
           </div>
         </div>
       </div>
@@ -84,9 +84,9 @@ export default {
       });
       let data = await res.json();
       data = data.map(x => {
-        const cart = x.cart;
+        const orderProducts = x.orderProducts;
         let total = 0;
-        for (const p of cart) {
+        for (const p of orderProducts) {
           total += p.product.price * p.quantity;
         }
         x.total = total.toFixed(2);
