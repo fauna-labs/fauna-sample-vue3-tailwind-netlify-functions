@@ -82,7 +82,7 @@ SPDX-License-Identifier: MIT-0
 import CartList from './CartList';
 
 export default {
-  name: 'Cart',
+  name: 'CartComponent',
   components: {
     CartList
   },

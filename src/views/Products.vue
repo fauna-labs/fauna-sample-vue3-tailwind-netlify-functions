@@ -19,7 +19,7 @@ import ProductItem from '../components/ProductItem.vue';
 import Cart from '../components/Cart.vue';
 
 export default {
-  name: "Products",
+  name: "ProductsView",
   components: { ProductItem, Cart },
   data() {
     return {

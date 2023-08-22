@@ -4,7 +4,7 @@ SPDX-License-Identifier: MIT-0
 -->
 <template>
   <div class="flex flex-col">
-    <ProductImage :width=80 :product="product"/>
+    <ProductImage :width=60 :product="product"/>
 
     <div class="flex flex-row">
       <button @click="buy(product)" class="">

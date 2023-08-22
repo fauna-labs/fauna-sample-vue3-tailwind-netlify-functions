@@ -1,0 +1,5 @@
+[build.environment]
+  FAUNA_SECRET=""
+
+[functions]
+  node_bundler="esbuild"

@@ -99,7 +99,7 @@ import CheckoutFormField from '../components/CheckoutFormField.vue';
 
 
 export default {
-  name: 'Checkout',
+  name: 'CheckoutView',
   components: {
     CartList,
     CheckoutFormField
@@ -193,7 +193,7 @@ export default {
           this.$router.push('/');
         } else {
           const data = await res.json();
-          alert(data.error === 'Unauthorized' ? 'Please Sign in to order' : data.error);
+          alert(data.error === 'unauthorized' ? 'Please Sign in to order' : data.error);
         }
     }
   },

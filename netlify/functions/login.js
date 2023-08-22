@@ -1,38 +1,33 @@
 // Copyright Fauna, Inc.
 // SPDX-License-Identifier: MIT-0
 
-const faunadb = require('faunadb');
-const q = faunadb.query;
-const { Login, Select, Paginate, Match, Index} = q;
-
-const client = new faunadb.Client({
-  secret: process.env.FAUNA_KEY,
-  domain: "db.fauna.com"
-});
+import { Client, fql } from "fauna";
 
 exports.handler = async function (event, context) {
   const payload = JSON.parse(event.body);
   if (event.httpMethod === 'POST') {
+    try {
+      const client = new Client({secret: process.env.FAUNA_SECRET});
 
-    let res = await client.query(
-      Login(
-        Select(
-          ['data', 0], 
-          Paginate(
-            Match(
-              Index('customers_by_first_and_last_name'), 
-              [payload.firstName, payload.lastName]
-            )
-          )
-        ),
-        { password: payload.password }
-      )
-    );
+      const res = await client.query(fql`
+      Credentials.byDocument(
+        customers.byFirstAndLastName(${payload.firstName}, ${payload.lastName}).first()
+      )!
+      .login(${payload.password})
+      `);
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(res),
-    };
+      client.close();
+  
+      return {
+        statusCode: 200,
+        body: JSON.stringify(res.data),
+      };  
+    } catch(e) {
+      return {
+        statusCode: 400,
+        body: `${e}`
+      };
+    }
   }
 
   return {

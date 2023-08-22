@@ -1,10 +1,9 @@
-# vue-fauna-use-demo-data
-Fauna provides an onboarding tutorial for new users to get familiar with core features of the product. To get
-started, follow along the [quick start guide](https://docs.fauna.com/fauna/current/learn/quick_start/quick_start).
-You would be creating a database with some **Demo data** as part of the guide. 
+# fauna-sample-vue3-tailwind-netlify-functions
+A sample e-commerce app using vue-3 and tailwindcss for the front end, and Netlify functions + Fauna for the back end. We showcase:
+* Fauna's document-relational model
+* **No servers!** Leverage Netlify functions to deploy server-side code/API endpoints. 
+* No servers, no operational overhead, manage everything – front and back-end – in one project.
 
-To supplement the tutorial/guide, we've provided this project, built on top of the **Demo data**, which
-provides you a sample of how to work with the database using Vue and Netlify.
 
 ![demo](/doc/images/vue-fauna-use-demo-data.gif)
 
@@ -22,25 +21,20 @@ provides you a sample of how to work with the database using Vue and Netlify.
 
 ### Fauna Setup
 Signup for a free Fauna account (if you haven't already done so) and simply create a database. For a 
-step by step guide, follow [these](https://docs.fauna.com/fauna/current/learn/quick_start/client_quick_start?lang=javascript#prerequisites)
-instructions from steps 1 through 3. 
-
-⚠️ In step 2 above, be sure to check the **Use demo data** checkbox.
+step by step guide, follow [the quick start](https://docs.fauna.com/fauna/current/learn/quick_start/client_quick_start?lang=javascript#prerequisites) instructions to [Create a database](https://docs.fauna.com/fauna/current/get_started/client_quick_start?lang=javascript#create-a-database) and [Get a database access token](https://docs.fauna.com/fauna/current/get_started/client_quick_start?lang=javascript#get-a-database-access-token).
 
 ### Project Setup
-* Create a `.env` file in the root of this project with the following values
+* Create a file `.env` in the root of this project and populate it with the FAUNA_SECRET database access token obtained from the above steps. e.g.
   ```
-  FAUNA_KEY={{secret}}
+  FAUNA_SECRET={{secret}}
   ```
-  For the value of `FAUNA_KEY`, use the access key value obtained from step 3 of the Fauna Setup. 
-
 
 * Install packages
   ```
   npm install
   ```
 
-* Run additional setup on the environment (create additional resources, populate more data, etc.)
+* Run setup script to populate database resources and sample data:
   ```
   npm run fauna-setup
   ```
